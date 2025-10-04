@@ -25,7 +25,8 @@ document.documentElement.style.background = '#000';
 document.body.style.background = '#000';
 renderer.domElement.style.background = '#000';
 // poner canvas detrás del contenido para que no tape elementos
-renderer.domElement.style.zIndex = '-1';
+renderer.domElement.style.zIndex = '-2';
+renderer.domElement.style.pointerEvents = 'none';
 
 // Luz
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);

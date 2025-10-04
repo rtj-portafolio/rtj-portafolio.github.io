@@ -9,6 +9,17 @@ body, html {
   background: #000; /* fondo negro por defecto */
 }
 
+/* Fondo de respaldo (por si el canvas no se muestra) */
+#bg-black {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  z-index: -3; /* detrás del canvas (-2) */
+}
+
 /* Perfil y descripción */
 #info {
   position: absolute;
