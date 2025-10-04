@@ -29,10 +29,38 @@ body, html {
   margin: auto;
 }
 
+/* Estilo para el texto (caja similar a la imagen) */
 #description {
-  margin-top: 10px;
+  margin-top: 12px;
   font-size: 16px;
   color: #fff;
+  display: inline-block; /* Para que la caja rodee el contenido */
+  background: rgba(0,0,0,0.45); /* Fondo semitransparente como la imagen */
+  padding: 12px 20px;
+  border: 2px solid #fff;
+  border-radius: 12px; /* Bordes redondeados */
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6), 0 0 18px rgba(255,255,255,0.05) inset;
+}
+
+/* Ajuste responsivo para pantallas pequeñas */
+@media (max-width: 480px) {
+  #info {
+    width: 90%;
+    max-width: 480px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding-top: 10px;
+  }
+
+  #description {
+    font-size: 14px;
+    padding: 10px 14px;
+  }
+
+  #profile-img {
+    width: 96px;
+    height: 96px;
+  }
 }
 
 /* Menú inferior */
