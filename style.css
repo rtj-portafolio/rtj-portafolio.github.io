@@ -103,8 +103,8 @@ body, html {
   right: -6px;
   bottom: -6px;
   border-radius: 14px;
-  border: 2px solid rgba(255,255,255,0.0);
-  box-shadow: 0 0 0 rgba(255,255,255,0.0);
+  border: 2px solid rgba(255,255,255,0);
+  box-shadow: 0 0 0 rgba(255,255,255,0);
   opacity: 0;
   pointer-events: none;
 }
@@ -147,3 +147,38 @@ body, html {
 #description.animate-glow::before {
   animation: border-glow 1s ease forwards;
 }
+
+/* Efecto neón con barrido (sweep) */
+#description::after {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  width: calc(100% + 12px);
+  height: calc(100% + 12px);
+  border-radius: 14px;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.85) 45%, rgba(255,255,255,0) 60%);
+  transform: translateX(-120%);
+  mix-blend-mode: screen;
+}
+
+@keyframes neon-sweep {
+  0% { transform: translateX(-120%); opacity: 0; }
+  40% { transform: translateX(-20%); opacity: 1; }
+  70% { transform: translateX(20%); opacity: 1; }
+  100% { transform: translateX(120%); opacity: 0; }
+}
+
+/* Ejecuta automáticamente el sweep al cargar */
+
+#description.sweep-on::after {
+  animation: neon-sweep 1.2s ease forwards;
+}
+
+/* Aplicar por defecto la clase sweep-on para que se active al cargar */
+#description.sweep-on::before {
+  animation: border-glow 1s ease forwards;
+}
+
+/* Añadir la clase por defecto en CSS: */
