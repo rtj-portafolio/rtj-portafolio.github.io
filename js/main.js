@@ -29,11 +29,15 @@ for(let i=0;i<gridX;i++){
     const geometry = new THREE.BoxGeometry(2,2,2);
     const material = new THREE.MeshStandardMaterial({
       color: 0x000000,
-      emissive: 0xffffff,
+      emissive: new THREE.Color(0xffffff),
+      emissiveIntensity: 0.2, // brillo base
       roughness: 0.2,
       metalness: 0.8
     });
     const cube = new THREE.Mesh(geometry, material);
+    // guardar referencia al material para animar el brillo
+    cube.userData.material = material;
+    cube.userData.targetEmissive = 0.2; // target para lerp
 
     // Wireframe para bordes
     const edges = new THREE.EdgesGeometry(geometry);
@@ -61,6 +65,17 @@ function animate(){
 
   // Reset escala de todos los cubos
   cubes.forEach(cube => cube.scale.set(1,1,1));
+
+  // suavizar transición del brillo emissiveIntensity
+  cubes.forEach(cube => {
+    const mat = cube.userData.material;
+    if(mat){
+      // lerp hacia targetEmissive
+      mat.emissiveIntensity += (cube.userData.targetEmissive - mat.emissiveIntensity) * 0.08;
+      // opcional: ajustar color si quieres un tono más cálido
+      // mat.emissive.lerp(new THREE.Color(0xffffff), 0.02);
+    }
+  });
 
   // Detectar intersección
   raycaster.setFromCamera(mouse, camera);
