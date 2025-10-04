@@ -2,7 +2,7 @@ body, html {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background: #000; /* Fondo más oscuro */
+  background: #000; /* Fondo negro */
   font-family: Arial, sans-serif;
   color: #fff;
 }
@@ -13,6 +13,7 @@ body, html {
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
+  z-index: 10;
 }
 
 #profile-img {
@@ -39,6 +40,7 @@ body, html {
   transform: translateX(-50%);
   display: flex;
   gap: 20px;
+  z-index: 10;
 }
 
 .menu-item {
