@@ -143,4 +143,29 @@ window.addEventListener('load', ()=>{
     // if you want a delayed sweep instead, uncomment next line
     // setTimeout(()=> desc.classList.add('sweep-on'), 300);
   }
+  // Populate fallback grid (CSS-only) in case WebGL doesn't render or canvas is blocked
+  const fallback = document.getElementById('fallback-grid');
+  if(fallback){
+    // create a bunch of cells
+    const cols = 10;
+    const rows = 6;
+    for(let r=0;r<rows;r++){
+      for(let c=0;c<cols;c++){
+        const cell = document.createElement('div');
+        cell.className = 'cell';
+        fallback.appendChild(cell);
+      }
+    }
+  }
+
+  // If WebGL context created successfully, hide fallback
+  // We check if renderer.domElement has a WebGL context
+  let hasGL = false;
+  try{
+    const gl = renderer.getContext();
+    if(gl) hasGL = true;
+  }catch(e){ hasGL = false; }
+  if(hasGL){
+    if(fallback) fallback.style.display = 'none';
+  }
 });
