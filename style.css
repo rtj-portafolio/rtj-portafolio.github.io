@@ -76,9 +76,7 @@ body, html {
   color: #fff; /* ensure currentColor for inline SVGs */
 }
 
-/* Special case: projects menu icon should be black */
-.menu-projects { color: #000; }
-.menu-projects:hover { color: #000; background: rgba(255,255,255,0.02); box-shadow: none; }
+/* (Removed special-case for projects color so emoji uses default color) */
 
 .menu-item:hover {
   transform: scale(1.12);
