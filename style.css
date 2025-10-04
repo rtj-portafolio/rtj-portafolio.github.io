@@ -61,17 +61,30 @@ body, html {
   text-align: center;
 .wide-badge {
   width: 440px; /* make default wide on desktop */
-  max-width: 90vw; /* responsive cap */
-  /* allow height to expand with content so text doesn't overflow */
-  min-height: 96px;
-  border-radius: 16px; /* caja más rectangular con bordes redondeados */
-  padding: 14px 18px; /* ensure inner spacing when element grows */
+.menu-item {
+  width: 60px;
+  height: 60px;
+  background: rgba(0,0,0,0.6);
+  border: 2px solid rgba(255,255,255,0.95);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.24s ease, box-shadow 0.24s ease, background 0.24s ease;
+  border-radius: 50%;
+  text-decoration: none;
+  color: #fff;
 }
 
-/* Ensure when both classes are applied the badge behaves as a block and grows */
-.circle-badge.wide-badge {
-  width: 440px;
-  max-width: 90vw;
+.menu-item:hover {
+  transform: scale(1.12);
+  box-shadow: 0 0 20px rgba(255,255,255,0.98);
+  background: rgba(255,255,255,0.04);
+}
+
+/* Special file menu button: keep SVG stroke white and add neon glow on hover */
+.menu-file svg path { stroke: #fff; }
+.menu-file:hover svg path { stroke: #ffffff; filter: drop-shadow(0 0 8px rgba(255,255,255,0.9)); }
   height: auto;
   min-height: 96px;
   border-radius: 16px;
