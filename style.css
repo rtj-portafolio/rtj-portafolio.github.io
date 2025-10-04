@@ -2,7 +2,7 @@ body, html {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background: #111;
+  background: #000; /* Fondo más oscuro */
   font-family: Arial, sans-serif;
   color: #fff;
 }
@@ -21,14 +21,15 @@ body, html {
   border-radius: 50%;
   background: url('images/profile.jpg') center center no-repeat;
   background-size: cover;
-  border: 2px solid #fff;
+  border: 2px solid #0ff;
+  box-shadow: 0 0 15px #0ff;
   margin: auto;
 }
 
 #description {
   margin-top: 10px;
   font-size: 16px;
-  color: #ccc;
+  color: #0ff;
 }
 
 #menu {
@@ -44,20 +45,22 @@ body, html {
   width: 80px;
   height: 80px;
   background: #000;
-  border: 2px solid #fff;
+  border: 2px solid #0ff;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   transition: 0.3s;
+  box-shadow: 0 0 10px #0ff;
 }
 
 .menu-item:hover {
-  transform: scale(1.1);
+  transform: scale(1.2);
+  box-shadow: 0 0 20px #0ff;
 }
 
 .menu-item svg {
-  fill: #fff;
+  fill: #0ff;
   width: 40px;
   height: 40px;
 }
