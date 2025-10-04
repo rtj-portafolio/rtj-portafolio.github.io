@@ -9,6 +9,14 @@ camera.position.z = 30;
 // Renderizador
 const renderer = new THREE.WebGLRenderer({antialias:true});
 renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(window.devicePixelRatio ? window.devicePixelRatio : 1);
+// make the canvas full screen and sit behind the content
+renderer.domElement.style.position = 'fixed';
+renderer.domElement.style.top = '0';
+renderer.domElement.style.left = '0';
+renderer.domElement.style.width = '100%';
+renderer.domElement.style.height = '100%';
+renderer.domElement.style.zIndex = '0';
 document.body.appendChild(renderer.domElement);
 
 // Luz
@@ -37,12 +45,18 @@ for(let i=0;i<gridX;i++){
     const cube = new THREE.Mesh(geometry, material);
     // guardar referencia al material para animar el brillo
     cube.userData.material = material;
-    cube.userData.targetEmissive = 0.2; // target para lerp
+    cube.userData.baseEmissive = 0.2; // valor base
+    cube.userData.targetEmissive = cube.userData.baseEmissive; // target para lerp
+    // target color for the wireframe (dim by default)
+    cube.userData.baseLineColor = new THREE.Color(0x666666);
+    cube.userData.targetLineColor = cube.userData.baseLineColor.clone();
 
     // Wireframe para bordes
-    const edges = new THREE.EdgesGeometry(geometry);
-    const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({color:0xffffff}));
-    cube.add(line);
+  const edges = new THREE.EdgesGeometry(geometry);
+  const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({color:0x888888}));
+  cube.add(line);
+  // guardar referencia a la línea para animar su color
+  cube.userData.line = line;
 
     cube.position.set((i-gridX/2)*spacing, (j-gridY/2)*spacing, 0);
     scene.add(cube);
@@ -66,22 +80,38 @@ function animate(){
   // Reset escala de todos los cubos
   cubes.forEach(cube => cube.scale.set(1,1,1));
 
-  // suavizar transición del brillo emissiveIntensity
+  // antes de checar intersecciones, restablecer target de todos los cubos
+  const HOVER_EMISSIVE = 1.0; // brillo objetivo al hacer hover
   cubes.forEach(cube => {
-    const mat = cube.userData.material;
-    if(mat){
-      // lerp hacia targetEmissive
-      mat.emissiveIntensity += (cube.userData.targetEmissive - mat.emissiveIntensity) * 0.08;
-      // opcional: ajustar color si quieres un tono más cálido
-      // mat.emissive.lerp(new THREE.Color(0xffffff), 0.02);
-    }
+    cube.userData.targetEmissive = cube.userData.baseEmissive;
+    cube.userData.targetLineColor.copy(cube.userData.baseLineColor);
   });
 
   // Detectar intersección
   raycaster.setFromCamera(mouse, camera);
   const intersects = raycaster.intersectObjects(cubes);
+  // marcar hovered
   intersects.forEach(intersect => {
-    intersect.object.scale.set(1.5,1.5,1.5); // Se agranda al pasar el mouse
+    const obj = intersect.object;
+    obj.scale.set(1.5,1.5,1.5); // Se agranda al pasar el mouse
+    obj.userData.targetEmissive = HOVER_EMISSIVE;
+    if(obj.userData.line){
+      obj.userData.targetLineColor = new THREE.Color(0xffffff);
+    }
+  });
+
+  // suavizar transición del brillo emissiveIntensity y del color de la línea
+  cubes.forEach(cube => {
+    const mat = cube.userData.material;
+    if(mat){
+      // lerp hacia targetEmissive
+      mat.emissiveIntensity += (cube.userData.targetEmissive - mat.emissiveIntensity) * 0.12;
+    }
+    const line = cube.userData.line;
+    if(line && cube.userData.targetLineColor){
+      // lerp the line color towards target
+      line.material.color.lerp(cube.userData.targetLineColor, 0.12);
+    }
   });
 
   renderer.render(scene, camera);
