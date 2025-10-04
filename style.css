@@ -20,34 +20,36 @@ body, html {
   z-index: -3; /* detrás del canvas (-2) */
 }
 
-/* Rejilla fallback (cuadrados CSS) */
+/* Rejilla fallback (cuadrados CSS) - cubre todo el fondo */
 #fallback-grid {
   position: fixed;
   inset: 0;
   display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  grid-auto-rows: minmax(40px, 1fr);
-  gap: 12px;
-  padding: 40px;
+  grid-template-columns: repeat(auto-fill, minmax(56px, 1fr));
+  grid-auto-rows: 56px;
+  gap: 10px;
+  padding: 10px;
   box-sizing: border-box;
   z-index: -1; /* encima del bg-black, encima del canvas fallback (canvas is -2) */
 }
 
 #fallback-grid .cell {
   background: #000; /* fill black */
-  border: 2px solid rgba(255,255,255,0.12);
-  box-shadow: 0 0 6px rgba(255,255,255,0.02) inset;
+  border: 2px solid rgba(255,255,255,0.9); /* borde blanco neón */
+  box-shadow: 0 0 16px rgba(255,255,255,0.85), 0 0 36px rgba(255,255,255,0.08) inset;
   transition: box-shadow 220ms ease, border-color 220ms ease, transform 220ms ease;
+  will-change: box-shadow, transform;
 }
 
 #fallback-grid .cell:hover {
-  border-color: rgba(255,255,255,0.95);
-  box-shadow: 0 0 18px rgba(255,255,255,0.9), 0 0 36px rgba(255,255,255,0.12) inset;
-  transform: scale(1.03);
+  border-color: rgba(255,255,255,1);
+  box-shadow: 0 0 30px rgba(255,255,255,0.98), 0 0 60px rgba(255,255,255,0.20) inset;
+  transform: scale(1.02);
 }
 
 @media (max-width: 600px) {
-  #fallback-grid { grid-template-columns: repeat(6, 1fr); gap: 8px; padding: 20px; }
+  #fallback-grid { grid-template-columns: repeat(auto-fill, minmax(44px, 1fr)); gap: 8px; padding: 8px; }
+  #fallback-grid .cell { grid-auto-rows: 44px; }
 }
 
 /* Perfil y descripción */
