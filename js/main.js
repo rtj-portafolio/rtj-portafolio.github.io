@@ -1,7 +1,10 @@
-// Escena y cámara
+// Escena
 const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x000000); // Fondo negro
+
+// Cámara
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-camera.position.z = 20;
+camera.position.z = 30;
 
 // Renderizador
 const renderer = new THREE.WebGLRenderer({antialias:true});
@@ -9,31 +12,30 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 // Luz
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
 const pointLight = new THREE.PointLight(0xffffff, 1);
-pointLight.position.set(10,10,10);
+pointLight.position.set(50,50,50);
 scene.add(pointLight);
 
-// Crear cuadrículas de cubos
+// Crear cubos en grid
 const cubes = [];
-const cubeSize = 1;
-const spacing = 2;
 const gridX = 10;
 const gridY = 6;
+const spacing = 4;
 
 for(let i=0;i<gridX;i++){
   for(let j=0;j<gridY;j++){
-    const geometry = new THREE.BoxGeometry(cubeSize,cubeSize,cubeSize);
+    const geometry = new THREE.BoxGeometry(2,2,2);
     const material = new THREE.MeshStandardMaterial({
       color: 0x000000,
       emissive: 0xffffff,
-      roughness:0.2,
-      metalness:0.8
+      roughness: 0.2,
+      metalness: 0.8
     });
     const cube = new THREE.Mesh(geometry, material);
 
-    // Bordes
+    // Wireframe para bordes
     const edges = new THREE.EdgesGeometry(geometry);
     const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({color:0xffffff}));
     cube.add(line);
@@ -44,31 +46,27 @@ for(let i=0;i<gridX;i++){
   }
 }
 
-// Raycaster para detectar mouse sobre cubos
+// Raycaster para interacción con el mouse
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 
-function onMouseMove(event){
+window.addEventListener('mousemove', (event)=>{
   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
   mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
-}
-window.addEventListener('mousemove', onMouseMove);
+});
 
 // Animación
 function animate(){
   requestAnimationFrame(animate);
 
-  // Detectar intersecciones
+  // Reset escala de todos los cubos
+  cubes.forEach(cube => cube.scale.set(1,1,1));
+
+  // Detectar intersección
   raycaster.setFromCamera(mouse, camera);
   const intersects = raycaster.intersectObjects(cubes);
-
-  cubes.forEach(cube => {
-    // Escala base
-    cube.scale.set(1,1,1);
-  });
-
-  intersects.forEach(intersect=>{
-    intersect.object.scale.set(1.5,1.5,1.5); // Se agranda al pasar mouse
+  intersects.forEach(intersect => {
+    intersect.object.scale.set(1.5,1.5,1.5); // Se agranda al pasar el mouse
   });
 
   renderer.render(scene, camera);
@@ -81,3 +79,4 @@ window.addEventListener('resize', ()=>{
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
+gi
