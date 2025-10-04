@@ -1,12 +1,13 @@
+/* Fondo y canvas detrás de HTML */
 body, html {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background: #000; /* Fondo negro */
   font-family: Arial, sans-serif;
-  color: #fff;
+  background: linear-gradient(#0a0a0a, #111111);
 }
 
+/* Perfil y descripción */
 #info {
   position: absolute;
   top: 20px;
@@ -33,6 +34,7 @@ body, html {
   color: #0ff;
 }
 
+/* Menú inferior */
 #menu {
   position: absolute;
   bottom: 30px;
@@ -44,8 +46,8 @@ body, html {
 }
 
 .menu-item {
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   background: #000;
   border: 2px solid #0ff;
   display: flex;
@@ -59,10 +61,4 @@ body, html {
 .menu-item:hover {
   transform: scale(1.2);
   box-shadow: 0 0 20px #0ff;
-}
-
-.menu-item svg {
-  fill: #0ff;
-  width: 40px;
-  height: 40px;
 }
