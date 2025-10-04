@@ -73,7 +73,7 @@ body, html {
   transition: transform 0.24s ease, box-shadow 0.24s ease, background 0.24s ease;
   border-radius: 50%;
   text-decoration: none;
-  color: #fff;
+  color: #fff; /* ensure currentColor for inline SVGs */
 }
 
 .menu-item:hover {
