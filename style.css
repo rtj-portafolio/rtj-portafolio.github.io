@@ -107,8 +107,9 @@ body, html {
 }
 
 .wide-badge {
-  width: 220px;
-  height: 140px;
+  width: 260px;
+  /* allow height to expand with content so text doesn't overflow */
+  min-height: 96px;
   border-radius: 16px; /* caja más rectangular con bordes redondeados */
 }
 
@@ -118,6 +119,9 @@ body, html {
   font-size: 13px;
   max-width: 100%;
   word-wrap: break-word;
+  text-align: left;
+  /* ensure the text can wrap and the container will grow vertically */
+  display: block;
 }
 
 .btn {
@@ -126,7 +130,7 @@ body, html {
   justify-content: center;
   width: 36px;
   height: 36px;
-  margin-top: 8px;
+  margin-top: 6px;
   background: rgba(255,255,255,0.04);
   color: #fff !important; /* forzar color blanco */
   border: 2px solid rgba(255,255,255,0.9);
@@ -197,6 +201,11 @@ body, html {
 .menu-item:hover {
   transform: scale(1.2);
   box-shadow: 0 0 20px #fff;
+}
+
+/* Ensure link states (visited/active/focus) keep the icon white */
+.btn:link, .btn:visited, .btn:active, .btn:focus {
+  color: #fff !important;
 }
 
 /* Brillo animado alrededor del contenedor */

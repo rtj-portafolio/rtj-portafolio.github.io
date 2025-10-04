@@ -174,6 +174,9 @@ window.addEventListener('load', ()=>{
 window.addEventListener('DOMContentLoaded', ()=>{
   const desc = document.getElementById('description');
   if(desc){
-    desc.innerHTML = '<div>Hola mi nombre es Jaque, me dicen <strong>RTJ</strong>. Soy developer experimentado en servers PocketMine y programo en PHP.<br>¿Quieres ver mis proyectos?</div><a id="projects-btn" class="btn" href="projects.html">Ver mis proyectos</a>';
+    // Do not overwrite the DOM here to avoid duplicate text. The HTML already contains
+    // the correct sentence and the circular icon link. We only ensure classes are present.
+    desc.classList.add('sweep-on');
+    desc.classList.add('animate-glow');
   }
 });
