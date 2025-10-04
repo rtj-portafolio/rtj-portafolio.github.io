@@ -59,6 +59,24 @@ body, html {
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
+.wide-badge {
+  width: 440px; /* make default wide on desktop */
+  max-width: 90vw; /* responsive cap */
+  /* allow height to expand with content so text doesn't overflow */
+  min-height: 96px;
+  border-radius: 16px; /* caja más rectangular con bordes redondeados */
+  padding: 14px 18px; /* ensure inner spacing when element grows */
+}
+
+/* Ensure when both classes are applied the badge behaves as a block and grows */
+.circle-badge.wide-badge {
+  width: 440px;
+  max-width: 90vw;
+  height: auto;
+  min-height: 96px;
+  border-radius: 16px;
+  display: inline-block;
+  padding: 14px 18px;
   z-index: 10; /* Encima del canvas */
 }
 
@@ -72,6 +90,7 @@ body, html {
   box-shadow: 0 0 15px #fff;
   margin: auto;
 }
+  max-width: 90vw; /* prevent the description from exceeding viewport */
 
 /* Estilo para el texto (caja similar a la imagen) */
 #description {
