@@ -10,17 +10,28 @@ body, html {
 }
 
 /* Fondo de respaldo (por si el canvas no se muestra) */
-#bg-black {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
+/* Restored stylesheet: fallback grid, badge, animations, and square menu buttons */
+
+/* Base */
+html, body {
+  margin: 0;
+  padding: 0;
   height: 100%;
+  width: 100%;
   background: #000;
-  z-index: -3; /* detrás del canvas (-2) */
+  font-family: Arial, sans-serif;
+  overflow: hidden;
 }
 
-/* Rejilla fallback (cuadrados CSS) - cubre todo el fondo */
+/* Background layer */
+#bg-black {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: -3;
+}
+
+/* Fallback grid */
 #fallback-grid {
   position: fixed;
   inset: 0;
@@ -30,17 +41,15 @@ body, html {
   gap: 10px;
   padding: 10px;
   box-sizing: border-box;
-  z-index: -1; /* encima del bg-black, encima del canvas fallback (canvas is -2) */
+  z-index: -1;
 }
 
 #fallback-grid .cell {
-  background: #000; /* fill black */
-  border: 2px solid rgba(255,255,255,0.9); /* borde blanco neón */
+  background: #000;
+  border: 2px solid rgba(255,255,255,0.9);
   box-shadow: 0 0 16px rgba(255,255,255,0.85), 0 0 36px rgba(255,255,255,0.08) inset;
   transition: box-shadow 220ms ease, border-color 220ms ease, transform 220ms ease;
-  will-change: box-shadow, transform;
 }
-
 #fallback-grid .cell:hover {
   border-color: rgba(255,255,255,1);
   box-shadow: 0 0 30px rgba(255,255,255,0.98), 0 0 60px rgba(255,255,255,0.20) inset;
@@ -52,118 +61,43 @@ body, html {
   #fallback-grid .cell { grid-auto-rows: 44px; }
 }
 
-/* Perfil y descripción */
+/* Info / profile */
 #info {
   position: absolute;
   top: 20px;
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
-.wide-badge {
-  width: 440px; /* make default wide on desktop */
-.menu-item {
-  width: 60px;
-  height: 60px;
-  background: rgba(0,0,0,0.6);
-  border: 2px solid rgba(255,255,255,0.95);
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  transition: transform 0.24s ease, box-shadow 0.24s ease, background 0.24s ease;
-  border-radius: 50%;
-  text-decoration: none;
-  color: #fff; /* ensure currentColor for inline SVGs */
-}
-
-/* (Removed special-case for projects color so emoji uses default color) */
-
-.menu-item:hover {
-  transform: scale(1.12);
-  box-shadow: 0 0 20px rgba(255,255,255,0.98);
-  background: rgba(255,255,255,0.04);
-}
-
-/* Special file menu button: keep SVG stroke white and add neon glow on hover */
-.menu-file svg path { stroke: #fff; }
-.menu-file:hover svg path { stroke: #ffffff; filter: drop-shadow(0 0 8px rgba(255,255,255,0.9)); }
-
-/* When a .btn is placed inside a .menu-item, make it small and white like the badge icon */
-.menu-item .btn {
-  width: 28px;
-  height: 28px;
-  font-size: 16px;
-  border: 1px solid rgba(255,255,255,0.9);
-  background: rgba(255,255,255,0.03);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  color: #fff !important;
-}
-
-.menu-item .btn:hover {
-  background: rgba(255,255,255,0.08);
-  box-shadow: 0 0 8px rgba(255,255,255,0.6);
-}
-
-/* CTA inside the description text (small circular icon) */
-.desc-cta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  margin-top: 6px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.9);
-  color: #fff;
-  text-decoration: none;
-}
-.desc-cta:hover {
-  background: rgba(255,255,255,0.08);
-  box-shadow: 0 0 10px rgba(255,255,255,0.6);
-}
-.desc-cta svg { display:block; }
-  height: auto;
-  min-height: 96px;
-  border-radius: 16px;
-  display: inline-block;
-  padding: 14px 18px;
-  z-index: 10; /* Encima del canvas */
+  z-index: 10;
 }
 
 #profile-img {
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  background: url('images/profile.jpg') center center no-repeat;
-  background-size: cover;
+  background: url('images/profile.jpg') center center / cover no-repeat;
   border: 2px solid #fff;
   box-shadow: 0 0 15px #fff;
-  margin: auto;
+  margin: 0 auto;
 }
-  max-width: 90vw; /* prevent the description from exceeding viewport */
 
-/* Estilo para el texto (caja similar a la imagen) */
+/* Description badge */
 #description {
   margin-top: 12px;
   font-size: 16px;
   color: #fff;
-  display: inline-block; /* Para que la caja rodee el contenido */
-  background: rgba(0,0,0,0.45); /* Fondo semitransparente como la imagen */
+  display: inline-block;
+  background: rgba(0,0,0,0.45);
   padding: 12px 20px;
   border: 2px solid #fff;
-  border-radius: 12px; /* Bordes redondeados */
+  border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.6), 0 0 18px rgba(255,255,255,0.05) inset;
-  position: relative; /* Para usar pseudo-elementos */
-  overflow: visible;
+  position: relative;
+  max-width: 90vw;
   animation: desc-appear 0.9s ease forwards;
 }
 
-/* Badge circular para el texto, imitando el perfil */
-.circle-badge {
+.circle-badge { /* base badge shape when used */
   width: 120px;
   height: 120px;
   display: flex;
@@ -171,7 +105,7 @@ body, html {
   justify-content: center;
   text-align: center;
   border-radius: 50%;
-  padding: 0; /* padding controlado por width/height */
+  padding: 0;
   background: rgba(0,0,0,0.45);
   border: 2px solid #fff;
   box-shadow: 0 0 15px #fff;
@@ -181,22 +115,21 @@ body, html {
 
 .wide-badge {
   width: 260px;
-  /* allow height to expand with content so text doesn't overflow */
   min-height: 96px;
-  border-radius: 16px; /* caja más rectangular con bordes redondeados */
+  border-radius: 16px;
 }
 
-.circle-badge div { /* contenido interno */
+.circle-badge div {
   padding: 8px;
   color: #fff;
   font-size: 13px;
   max-width: 100%;
   word-wrap: break-word;
   text-align: left;
-  /* ensure the text can wrap and the container will grow vertically */
   display: block;
 }
 
+/* small circular button style (used inside badges when needed) */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -205,50 +138,23 @@ body, html {
   height: 36px;
   margin-top: 6px;
   background: rgba(255,255,255,0.04);
-  color: #fff !important; /* forzar color blanco */
+  color: #fff !important;
   border: 2px solid rgba(255,255,255,0.9);
   border-radius: 50%;
   text-decoration: none;
   font-size: 18px;
   transition: background 160ms ease, box-shadow 160ms ease, transform 160ms ease;
 }
-
-.btn:hover {
-  background: rgba(255,255,255,0.14);
-  box-shadow: 0 0 12px rgba(255,255,255,0.8);
-  transform: translateY(-2px);
-}
+.btn:hover { background: rgba(255,255,255,0.14); box-shadow: 0 0 12px rgba(255,255,255,0.8); transform: translateY(-2px); }
 
 @media (max-width: 480px) {
-  .circle-badge {
-    width: 110px;
-    height: 110px;
-    font-size: 13px;
-  }
+  .circle-badge { width: 110px; height: 110px; font-size: 13px; }
+  #info { width: 90%; max-width: 480px; left: 50%; transform: translateX(-50%); padding-top: 10px; }
+  #description { font-size: 14px; padding: 10px 14px; }
+  #profile-img { width: 96px; height: 96px; }
 }
 
-/* Ajuste responsivo para pantallas pequeñas */
-@media (max-width: 480px) {
-  #info {
-    width: 90%;
-    max-width: 480px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding-top: 10px;
-  }
-
-  #description {
-    font-size: 14px;
-    padding: 10px 14px;
-  }
-
-  #profile-img {
-    width: 96px;
-    height: 96px;
-  }
-}
-
-/* Menú inferior */
+/* Menu (square buttons) */
 #menu {
   position: absolute;
   bottom: 30px;
@@ -270,102 +176,14 @@ body, html {
   cursor: pointer;
   transition: 0.3s;
 }
+.menu-item:hover { transform: scale(1.2); box-shadow: 0 0 20px #fff; }
 
-.menu-item:hover {
-  transform: scale(1.2);
-  box-shadow: 0 0 20px #fff;
-}
-
-/* Ensure link states (visited/active/focus) keep the icon white */
-.btn:link, .btn:visited, .btn:active, .btn:focus {
-  color: #fff !important;
-}
-
-/* Brillo animado alrededor del contenedor */
-#description::before {
-  content: "";
-  position: absolute;
-  top: -6px;
-  left: -6px;
-  right: -6px;
-  bottom: -6px;
-  border-radius: 14px;
-  border: 2px solid rgba(255,255,255,0);
-  box-shadow: 0 0 0 rgba(255,255,255,0);
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* Keyframes para la entrada con brillo */
-@keyframes desc-appear {
-  0% {
-    transform: scale(0.85) translateY(-6px);
-    opacity: 0;
-  }
-  60% {
-    transform: scale(1.02) translateY(0);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1) translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes border-glow {
-  0% {
-    box-shadow: 0 0 0 rgba(255,255,255,0);
-    border-color: rgba(255,255,255,0);
-    opacity: 0;
-  }
-  50% {
-    box-shadow: 0 0 18px rgba(255,255,255,0.9), 0 0 36px rgba(255,255,255,0.25);
-    border-color: rgba(255,255,255,0.9);
-    opacity: 1;
-  }
-  100% {
-    box-shadow: 0 0 8px rgba(255,255,255,0.45);
-    border-color: rgba(255,255,255,0.6);
-    opacity: 1;
-  }
-}
-
-/* Aplica la animación de borde a ::before cuando carga */
-#description.animate-glow::before {
-  animation: border-glow 1s ease forwards;
-}
-
-/* Efecto neón con barrido (sweep) */
-#description::after {
-  content: "";
-  position: absolute;
-  top: -6px;
-  left: -6px;
-  width: calc(100% + 12px);
-  height: calc(100% + 12px);
-  border-radius: 14px;
-  pointer-events: none;
-  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.85) 45%, rgba(255,255,255,0) 60%);
-  transform: translateX(-120%);
-  mix-blend-mode: screen;
-}
-
-@keyframes neon-sweep {
-  0% { transform: translateX(-120%); opacity: 0; }
-  40% { transform: translateX(-20%); opacity: 1; }
-  70% { transform: translateX(20%); opacity: 1; }
-  100% { transform: translateX(120%); opacity: 0; }
-}
-
-/* Ejecuta automáticamente el sweep al cargar */
-
-#description.sweep-on::after {
-  animation: neon-sweep 1.2s ease forwards;
-}
-
-/* Aplicar por defecto la clase sweep-on para que se active al cargar */
-#description.sweep-on::before {
-  animation: border-glow 1s ease forwards;
-}
-
-/* Añadir la clase por defecto en CSS: */
+/* Glow/border animations for description */
+#description::before { content: ""; position: absolute; top: -6px; left: -6px; right: -6px; bottom: -6px; border-radius: 14px; border: 2px solid rgba(255,255,255,0); box-shadow: 0 0 0 rgba(255,255,255,0); opacity: 0; pointer-events: none; }
+@keyframes desc-appear { 0% { transform: scale(0.85) translateY(-6px); opacity: 0; } 60% { transform: scale(1.02) translateY(0); opacity: 1; } 100% { transform: scale(1) translateY(0); opacity: 1; } }
+@keyframes border-glow { 0% { box-shadow: 0 0 0 rgba(255,255,255,0); border-color: rgba(255,255,255,0); opacity: 0; } 50% { box-shadow: 0 0 18px rgba(255,255,255,0.9), 0 0 36px rgba(255,255,255,0.25); border-color: rgba(255,255,255,0.9); opacity: 1; } 100% { box-shadow: 0 0 8px rgba(255,255,255,0.45); border-color: rgba(255,255,255,0.6); opacity: 1; } }
+#description.animate-glow::before { animation: border-glow 1s ease forwards; }
+#description::after { content: ""; position: absolute; top: -6px; left: -6px; width: calc(100% + 12px); height: calc(100% + 12px); border-radius: 14px; pointer-events: none; background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.85) 45%, rgba(255,255,255,0) 60%); transform: translateX(-120%); mix-blend-mode: screen; }
+@keyframes neon-sweep { 0% { transform: translateX(-120%); opacity: 0; } 40% { transform: translateX(-20%); opacity: 1; } 70% { transform: translateX(20%); opacity: 1; } 100% { transform: translateX(120%); opacity: 0; } }
+#description.sweep-on::after { animation: neon-sweep 1.2s ease forwards; }
+#description.sweep-on::before { animation: border-glow 1s ease forwards; }
