@@ -169,3 +169,11 @@ window.addEventListener('load', ()=>{
     if(fallback) fallback.style.display = 'none';
   }
 });
+
+// Force the correct description text in case of stale HTML or cache
+window.addEventListener('DOMContentLoaded', ()=>{
+  const desc = document.getElementById('description');
+  if(desc){
+    desc.innerHTML = '<div>Hola mi nombre es Jaque, me dicen <strong>RTJ</strong>. Soy developer experimentado en servers PocketMine y programo en PHP.<br>¿Quieres ver mis proyectos?</div><a id="projects-btn" class="btn" href="projects.html">Ver mis proyectos</a>';
+  }
+});
