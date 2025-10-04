@@ -10,6 +10,8 @@ camera.position.z = 30;
 const renderer = new THREE.WebGLRenderer({antialias:true});
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(window.devicePixelRatio ? window.devicePixelRatio : 1);
+// Asegurar que el renderer limpie a negro
+renderer.setClearColor(0x000000, 1);
 // make the canvas full screen and sit behind the content
 renderer.domElement.style.position = 'fixed';
 renderer.domElement.style.top = '0';
@@ -18,6 +20,12 @@ renderer.domElement.style.width = '100%';
 renderer.domElement.style.height = '100%';
 renderer.domElement.style.zIndex = '0';
 document.body.appendChild(renderer.domElement);
+// Forzar fondo negro en caso de cache/estilos inesperados
+document.documentElement.style.background = '#000';
+document.body.style.background = '#000';
+renderer.domElement.style.background = '#000';
+// poner canvas detrás del contenido para que no tape elementos
+renderer.domElement.style.zIndex = '-1';
 
 // Luz
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);

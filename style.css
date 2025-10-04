@@ -6,6 +6,7 @@ body, html {
   font-family: Arial, sans-serif;
   height: 100%;
   width: 100%;
+  background: #000; /* fondo negro por defecto */
 }
 
 /* Perfil y descripción */
