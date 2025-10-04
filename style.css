@@ -116,24 +116,29 @@ body, html {
   padding: 8px;
   color: #fff;
   font-size: 13px;
+  max-width: 100%;
+  word-wrap: break-word;
 }
 
 .btn {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
   margin-top: 8px;
-  padding: 6px 10px;
-  background: transparent;
-  color: #fff;
+  background: rgba(255,255,255,0.04);
+  color: #fff !important; /* forzar color blanco */
   border: 2px solid rgba(255,255,255,0.9);
-  border-radius: 8px;
+  border-radius: 50%;
   text-decoration: none;
-  font-size: 12px;
+  font-size: 18px;
   transition: background 160ms ease, box-shadow 160ms ease, transform 160ms ease;
 }
 
 .btn:hover {
-  background: rgba(255,255,255,0.06);
-  box-shadow: 0 0 12px rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.14);
+  box-shadow: 0 0 12px rgba(255,255,255,0.8);
   transform: translateY(-2px);
 }
 
