@@ -85,6 +85,25 @@ body, html {
 /* Special file menu button: keep SVG stroke white and add neon glow on hover */
 .menu-file svg path { stroke: #fff; }
 .menu-file:hover svg path { stroke: #ffffff; filter: drop-shadow(0 0 8px rgba(255,255,255,0.9)); }
+
+/* When a .btn is placed inside a .menu-item, make it small and white like the badge icon */
+.menu-item .btn {
+  width: 28px;
+  height: 28px;
+  font-size: 16px;
+  border: 1px solid rgba(255,255,255,0.9);
+  background: rgba(255,255,255,0.03);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #fff !important;
+}
+
+.menu-item .btn:hover {
+  background: rgba(255,255,255,0.08);
+  box-shadow: 0 0 8px rgba(255,255,255,0.6);
+}
   height: auto;
   min-height: 96px;
   border-radius: 16px;
