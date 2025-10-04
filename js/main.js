@@ -79,4 +79,14 @@ window.addEventListener('resize', ()=>{
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
-gi
+// Activate glow/sweep for the description badge on load
+window.addEventListener('load', ()=>{
+  const desc = document.getElementById('description');
+  if(desc){
+    // ensure classes exist (index.html already may include sweep-on)
+    desc.classList.add('sweep-on');
+    desc.classList.add('animate-glow');
+    // if you want a delayed sweep instead, uncomment next line
+    // setTimeout(()=> desc.classList.add('sweep-on'), 300);
+  }
+});
