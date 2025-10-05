@@ -207,6 +207,17 @@ a.menu-item, a.menu-item:link, a.menu-item:visited, a.menu-item:active, a.menu-i
   transform: scale(1.08);
 }
 
+/* Force inline SVG icons inside menu anchors to render white
+   Some browsers may apply a visited color; setting stroke/fill here
+   ensures the folder icon stays white regardless of link history. */
+a.menu-item svg,
+a.menu-item svg * {
+  stroke: #fff !important;
+  fill: #fff !important;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+}
+
 /* Glow/border animations for description */
 #description::before { content: ""; position: absolute; top: -6px; left: -6px; right: -6px; bottom: -6px; border-radius: 14px; border: 2px solid rgba(255,255,255,0); box-shadow: 0 0 0 rgba(255,255,255,0); opacity: 0; pointer-events: none; }
 @keyframes desc-appear { 0% { transform: scale(0.85) translateY(-6px); opacity: 0; } 60% { transform: scale(1.02) translateY(0); opacity: 1; } 100% { transform: scale(1) translateY(0); opacity: 1; } }
