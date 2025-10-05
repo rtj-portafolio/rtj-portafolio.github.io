@@ -20,10 +20,9 @@ renderer.domElement.style.width = '100%';
 renderer.domElement.style.height = '100%';
 renderer.domElement.style.zIndex = '0';
 document.body.appendChild(renderer.domElement);
-// Forzar fondo negro en caso de cache/estilos inesperados
-document.documentElement.style.background = '#000';
-document.body.style.background = '#000';
-renderer.domElement.style.background = '#000';
+// Keep document background controlled by CSS so the gradient shows through
+// (do not override body/html background here)
+// renderer.domElement.style.background = '#000';
 // poner canvas detrás del contenido para que no tape elementos
 renderer.domElement.style.zIndex = '-3';
 renderer.domElement.style.pointerEvents = 'none';

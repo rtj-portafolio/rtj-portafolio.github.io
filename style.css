@@ -27,8 +27,9 @@ html, body {
 #bg-black {
   position: fixed;
   inset: 0;
-  background: #000;
-  z-index: -3;
+  /* vertical gradient: negro arriba -> blanco abajo */
+  background: linear-gradient(to bottom, #000 0%, #ffffff 100%);
+  z-index: -4; /* sit below the canvas and fallback grid */
 }
 
 /* Fallback grid */
