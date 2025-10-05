@@ -35,41 +35,49 @@ const pointLight = new THREE.PointLight(0xffffff, 1);
 pointLight.position.set(50,50,50);
 scene.add(pointLight);
 
-// Crear cubos en grid
+// Crear cubos en un grid 3D (capas) para sensación de apilamiento 3D
 const cubes = [];
 const gridX = 10;
 const gridY = 6;
-const spacing = 4;
+const layers = 3; // número de capas en Z
+const cubeSize = 3;
+const spacing = 4; // separación en X/Y
+const layerSpacing = 3.6; // separación entre capas Z
 
-for(let i=0;i<gridX;i++){
-  for(let j=0;j<gridY;j++){
-    const geometry = new THREE.BoxGeometry(2,2,2);
-    const material = new THREE.MeshStandardMaterial({
-      color: 0x000000,
-      emissive: new THREE.Color(0xffffff),
-      emissiveIntensity: 0.2, // brillo base
-      roughness: 0.2,
-      metalness: 0.8
-    });
-    const cube = new THREE.Mesh(geometry, material);
-    // guardar referencia al material para animar el brillo
-    cube.userData.material = material;
-    cube.userData.baseEmissive = 0.2; // valor base
-    cube.userData.targetEmissive = cube.userData.baseEmissive; // target para lerp
-    // target color for the wireframe (dim by default)
-    cube.userData.baseLineColor = new THREE.Color(0x666666);
-    cube.userData.targetLineColor = cube.userData.baseLineColor.clone();
+// agrupar todos los cubos para rotar el conjunto suavemente
+const gridGroup = new THREE.Group();
+scene.add(gridGroup);
 
-    // Wireframe para bordes
-  const edges = new THREE.EdgesGeometry(geometry);
-  const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({color:0x888888}));
-  cube.add(line);
-  // guardar referencia a la línea para animar su color
-  cube.userData.line = line;
+for (let k = 0; k < layers; k++) {
+  for (let i = 0; i < gridX; i++) {
+    for (let j = 0; j < gridY; j++) {
+      const geometry = new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize);
+      const material = new THREE.MeshStandardMaterial({
+        color: 0x06060a, // muy oscuro para que el emissive destaque
+        emissive: new THREE.Color(0x66ccff),
+        emissiveIntensity: 0.06, // brillo base bajo
+        roughness: 0.25,
+        metalness: 0.6
+      });
+      const cube = new THREE.Mesh(geometry, material);
+      cube.userData.material = material;
+      cube.userData.baseEmissive = 0.06;
+      cube.userData.targetEmissive = cube.userData.baseEmissive;
+      cube.userData.baseLineColor = new THREE.Color(0x555555);
+      cube.userData.targetLineColor = cube.userData.baseLineColor.clone();
 
-    cube.position.set((i-gridX/2)*spacing, (j-gridY/2)*spacing, 0);
-    scene.add(cube);
-    cubes.push(cube);
+      const edges = new THREE.EdgesGeometry(geometry);
+      const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0x8888aa }));
+      cube.add(line);
+      cube.userData.line = line;
+
+      const x = (i - (gridX - 1) / 2) * spacing;
+      const y = (j - (gridY - 1) / 2) * spacing;
+      const z = (k - (layers - 1) / 2) * layerSpacing;
+      cube.position.set(x, y, z);
+      gridGroup.add(cube);
+      cubes.push(cube);
+    }
   }
 }
 
@@ -87,7 +95,7 @@ function animate(){
   requestAnimationFrame(animate);
 
   // Reset escala de todos los cubos
-  cubes.forEach(cube => cube.scale.set(1,1,1));
+  cubes.forEach(cube => cube.scale.set(1, 1, 1));
 
   // antes de checar intersecciones, restablecer target de todos los cubos
   const HOVER_EMISSIVE = 1.0; // brillo objetivo al hacer hover
@@ -102,9 +110,9 @@ function animate(){
   // marcar hovered
   intersects.forEach(intersect => {
     const obj = intersect.object;
-    obj.scale.set(1.5,1.5,1.5); // Se agranda al pasar el mouse
-    obj.userData.targetEmissive = HOVER_EMISSIVE;
-    if(obj.userData.line){
+    obj.scale.set(1.6, 1.6, 1.6); // Se agranda al pasar el mouse
+    obj.userData.targetEmissive = HOVER_EMISSIVE * 1.6; // brillo más intenso
+    if (obj.userData.line) {
       obj.userData.targetLineColor = new THREE.Color(0xffffff);
     }
   });
@@ -114,7 +122,7 @@ function animate(){
     const mat = cube.userData.material;
     if(mat){
       // lerp hacia targetEmissive
-      mat.emissiveIntensity += (cube.userData.targetEmissive - mat.emissiveIntensity) * 0.12;
+      mat.emissiveIntensity += (cube.userData.targetEmissive - mat.emissiveIntensity) * 0.16;
     }
     const line = cube.userData.line;
     if(line && cube.userData.targetLineColor){
@@ -122,6 +130,9 @@ function animate(){
       line.material.color.lerp(cube.userData.targetLineColor, 0.12);
     }
   });
+
+  // rotar ligeramente el grupo para dar sensación 3D dinámica
+  gridGroup.rotation.y += 0.0012;
 
   renderer.render(scene, camera);
 }
