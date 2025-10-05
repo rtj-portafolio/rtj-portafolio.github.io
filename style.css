@@ -177,6 +177,7 @@ html, body {
   cursor: pointer;
   transition: 0.3s;
   position: relative; /* ensure z-index works */
+  pointer-events: auto; /* ensure clickable */
 }
 .menu-item:hover { transform: scale(1.2); box-shadow: 0 0 20px #fff; }
 
@@ -230,6 +231,8 @@ a.menu-item, a.menu-item:link, a.menu-item:visited, a.menu-item:active, a.menu-i
   justify-content: center;
   align-items: center;
   aspect-ratio: 1 / 1; /* enforce square ratio */
+  z-index: 20; /* make sure it's above other elements */
+  pointer-events: auto; /* ensure clickable inside badge */
 }
 
 .circle-badge .menu-item.btn-black svg { width: 14px; height: 14px; display: block; }
