@@ -214,6 +214,17 @@ a.menu-item, a.menu-item:link, a.menu-item:visited, a.menu-item:active, a.menu-i
   transform: scale(1.08);
 }
 
+/* Button variant when placed inside the description badge: keep it a strict square
+   and avoid stretching inside the badge's flex container. */
+.circle-badge .menu-item.btn-black {
+  width: 56px;
+  height: 56px;
+  min-width: 56px;
+  min-height: 56px;
+  flex: 0 0 auto;
+  box-shadow: 0 0 8px rgba(255,255,255,0.06) inset;
+}
+
 /* Force inline SVG icons inside menu anchors to render white
    Some browsers may apply a visited color; setting stroke/fill here
    ensures the folder icon stays white regardless of link history. */
