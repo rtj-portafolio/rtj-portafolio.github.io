@@ -181,12 +181,23 @@ html, body {
 /* Specific black style for a menu button */
 .btn-black {
   background: #000;
-  border: 2px solid #fff;
+  border: 2px solid rgba(255,255,255,0.95);
   color: #fff;
+  /* make it a circular inner badge */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 18px;
+  box-shadow: 0 0 8px rgba(255,255,255,0.06) inset;
+  text-decoration: none;
 }
 .btn-black:hover {
   background: #000;
-  box-shadow: 0 0 22px #fff;
+  box-shadow: 0 0 30px rgba(255,255,255,0.95), 0 0 12px rgba(255,255,255,0.12) inset;
+  transform: scale(1.08);
 }
 
 /* Glow/border animations for description */
