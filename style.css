@@ -111,6 +111,7 @@ html, body {
   box-shadow: 0 0 15px #fff;
   font-size: 14px;
   line-height: 1.1;
+  overflow: visible; /* allow inner button to be visible */
 }
 
 .wide-badge {
@@ -175,6 +176,7 @@ html, body {
   align-items: center;
   cursor: pointer;
   transition: 0.3s;
+  position: relative; /* ensure z-index works */
 }
 .menu-item:hover { transform: scale(1.2); box-shadow: 0 0 20px #fff; }
 
