@@ -178,6 +178,13 @@ html, body {
 }
 .menu-item:hover { transform: scale(1.2); box-shadow: 0 0 20px #fff; }
 
+/* Ensure anchor menu items never use the browser default link colors */
+a.menu-item, a.menu-item:link, a.menu-item:visited, a.menu-item:active, a.menu-item:hover {
+  color: #fff !important;
+  text-decoration: none !important;
+  -webkit-text-fill-color: #fff !important; /* for certain engines */
+}
+
 /* Specific black style for a menu button */
 .btn-black {
   background: #000;
