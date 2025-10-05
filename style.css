@@ -190,13 +190,13 @@ a.menu-item, a.menu-item:link, a.menu-item:visited, a.menu-item:active, a.menu-i
   background: #000;
   border: 2px solid rgba(255,255,255,0.95);
   color: #fff;
-  /* make it a circular inner badge */
+  /* make it a square to match other menu items */
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  border-radius: 8px; /* subtle rounding to match aesthetic */
   font-size: 18px;
   box-shadow: 0 0 8px rgba(255,255,255,0.06) inset;
   text-decoration: none;
