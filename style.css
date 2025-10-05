@@ -178,6 +178,11 @@ html, body {
 }
 .menu-item:hover { transform: scale(1.2); box-shadow: 0 0 20px #fff; }
 
+/* Force square appearance in case other styles try to round these */
+.menu-item, .menu-item * {
+  border-radius: 0 !important;
+}
+
 /* Ensure anchor menu items never use the browser default link colors */
 a.menu-item, a.menu-item:link, a.menu-item:visited, a.menu-item:active, a.menu-item:hover {
   color: #fff !important;
@@ -196,7 +201,7 @@ a.menu-item, a.menu-item:link, a.menu-item:visited, a.menu-item:active, a.menu-i
   justify-content: center;
   width: 60px;
   height: 60px;
-  border-radius: 8px; /* subtle rounding to match aesthetic */
+  border-radius: 0; /* square button as requested */
   font-size: 18px;
   box-shadow: 0 0 8px rgba(255,255,255,0.06) inset;
   text-decoration: none;
