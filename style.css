@@ -27,8 +27,16 @@ html, body {
 #bg-black {
   position: fixed;
   inset: 0;
-  /* vertical gradient: negro arriba -> blanco abajo */
-  background: linear-gradient(to bottom, #000 0%, #ffffff 100%);
+  /* smoother vertical fade: negro -> dark greys -> light greys -> blanco */
+  background: linear-gradient(
+    to bottom,
+    #000000 0%,
+    #0b0b0b 18%,
+    #222222 38%,
+    #555555 62%,
+    #cccccc 86%,
+    #ffffff 100%
+  );
   z-index: -4; /* sit below the canvas and fallback grid */
 }
 
